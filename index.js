@@ -1,28 +1,3 @@
-// import express from 'express';
-// import bodyParser from 'body-parser';
-// import * as dotenv from 'dotenv'
-// import connect from './database/database.js'
-// import cors from 'cors';
-
-// const app = express();
-// const PORT = 5003;
-// app.use(cors());
-// app.use(bodyParser.json({ limit: "30mb", extended: true }));
-// app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
-// // dotenv.config();
-// app.listen(
-//     PORT, async() => {
-//     await connect();
-//     console.log(`Server is running on port: ${PORT}`);
-//     // socket();
-// });
-// app.use("/",(req , res) => {
-//     res.send("Hello World");
-// })  
-
-// app.use(express.json());
-
-
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -33,7 +8,6 @@ import chat from "./router/chat.js";
 import message from "./router/message.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import connect from './database/database.js'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -43,7 +17,8 @@ const io = new Server(httpServer, {
     origin: "*",
   },
 });
-const SQL = "mongodb+srv://nhatnguyentk2:thanhnhattk@cluster0.ejwks8o.mongodb.net/Chat_app?retryWrites=true&w=majority";
+const SQL = "mongodb+srv://nhatnguyentk2:thanhnhattk12345@cluster0.3uvj0xf.mongodb.net/My_chat?retryWrites=true&w=majority&appName=Cluster0";
+
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
@@ -110,7 +85,7 @@ io.on("connection", (socket) => {
 
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(SQL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(SQL)
   .then(() => {
     console.log("Connected to MongoDB");
     httpServer.listen(PORT, () =>
