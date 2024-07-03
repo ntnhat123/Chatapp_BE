@@ -4,7 +4,7 @@ export const auth = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const isCustomAuth = token.length < 500;
     if (token && isCustomAuth) {
-      const decodedData = jwt.verify(token, process.env.TOKEN);
+      const decodedData = jwt.verify(token, 'chat');
       req.userId = decodedData.id;
     }
 
